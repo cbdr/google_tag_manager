@@ -37,7 +37,7 @@ GoogleTagManager.onUninstall = function(cb) {
  * The result is ignored
  */
 GoogleTagManager.onStartup = function(cb) {
-    pb.AnalyticsManager.registerProvider('google_tag_manager', function(req, session, ls, cb) {
+    pb.AnalyticsManager.registerProvider('google_tag_manager', function(req, session, ls, cb){
         pb.plugins.getSettingsKV('gtm', function(err, settings) {
             if (util.isError(err)) {
                 return cb(err, '');
@@ -50,7 +50,12 @@ GoogleTagManager.onStartup = function(cb) {
             var script             = '<!-- Google Tag Manager --><noscript><iframe src="//www.googletagmanager.com/ns.html?id='+gtmId +'"height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="//www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","'+ gtmId +'");</script><!-- End Google Tag Manager -->';
             cb(null, script);
         });
-    });
+    }, 'analytics');
+    
+    pb.AnalyticsManager.registerProvider('gtm_data_layer', function(req, session, ls, cb){
+        var script = '<!-- GTM Data Layer --><script>var dataLayer = [];</script><!-- End GTM Data Layer -->'
+        cb(null, script);
+    }, 'gtm_data_layer');
     cb(null, true);
 };
 

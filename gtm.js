@@ -39,7 +39,7 @@ module.exports = function GoogleTagManagerModule(pb){
    * The result is ignored
    */
   GoogleTagManager.onStartupWithContext = function(context, cb) {
-    pb.AnalyticsManager.registerProvider('google_tag_manager', function(req, session, ls, cb){
+    pb.AnalyticsManager.registerProvider('google_tag_manager', context.site, function(req, session, ls, cb){
       var siteId = pb.RequestHandler.sites[req.headers.host] ? pb.RequestHandler.sites[req.headers.host].uid : null;
       var pluginService = new pb.PluginService({site: pb.SiteService.getCurrentSite(siteId)});
       pluginService.getSettingsKV('gtm', function(err, settings) {

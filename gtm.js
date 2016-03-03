@@ -38,8 +38,8 @@ module.exports = function GoogleTagManagerModule(pb){
    * @param cb A callback that must be called upon completion.  cb(err, result).
    * The result is ignored
    */
-  GoogleTagManager.onStartup = function(cb) {
-    pb.AnalyticsManager.registerProvider('google_tag_manager', function(req, session, ls, cb){
+  GoogleTagManager.onStartupWithContext = function(context, cb) {
+    pb.AnalyticsManager.registerProvider('google_tag_manager', context.site, function(req, session, ls, cb){
       var siteId = pb.RequestHandler.sites[req.headers.host] ? pb.RequestHandler.sites[req.headers.host].uid : null;
       var pluginService = new pb.PluginService({site: pb.SiteService.getCurrentSite(siteId)});
       pluginService.getSettingsKV('gtm', function(err, settings) {

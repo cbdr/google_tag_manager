@@ -2,7 +2,7 @@
     "uid": "gtm",
     "name": "Google Tag Manager Plugin",
     "description": "Adds a Google Tag Manager script to the site.",
-    "pb_version": "0.4.x",
+    "pb_version": "0.5.x",
     "version": "0.2.0",
     "author": {
         "name": "Ben Tidwell",
